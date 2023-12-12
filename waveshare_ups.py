@@ -137,7 +137,7 @@ def Main():
             Data['Cur'] = UPS.getCurrent_mA() / 1000            # current in A
             Data['Power'] = UPS.getPower_W()                    # power in W
             #This percentage comes from the Waveshare code, blame them for inaccuracy
-            Data['Pct'] = (Data['VoltBus'] - 6)/2.4*100
+            Data['Pct'] = (Data['VoltBus'] - 3)/1.2*100
             if(Data['Pct'] > 100):Data['Pct'] = 100
             if(Data['Pct'] < 0):Data['Pct'] = 0
 
