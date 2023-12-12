@@ -3,7 +3,9 @@ Description=Waveshare UPS to MQTT Monitor
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/python3 /usr/local/bin/waveshare_ups.py
+#ExecStart=/usr/bin/python3 /usr/local/bin/waveshare_ups.py
+#ExecStart=/bin/bash -c 'source /srv/ups2mqtt/bin/activate; /usr/bin/python3 /srv/ups2mqtt/waveshare_ups.py'
+ExecStart=/srv/ups2mqtt/bin/python3.9 /srv/ups2mqtt/waveshare_ups.py
 Restart=always
 
 [Install]

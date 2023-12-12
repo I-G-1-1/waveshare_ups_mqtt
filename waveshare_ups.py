@@ -19,7 +19,7 @@ from datetime import datetime
 #Main routine
 def Main():
     #Load config.yaml
-    CFName = "/etc/waveshare_ups.yaml"
+    CFName = "/home/homeassistant/.homeassistant/waveshare_ups.yaml"
     print("CONFIG: Opening file ",CFName)
     CFile = open(CFName,'r')
     Config = yaml.safe_load(CFile)

@@ -2,13 +2,16 @@
 #If this section does not exist, program will quit
 mqtt:
   #Broker has no default and must be provided
-  broker: '192.168.1.1'
+  #broker: '192.168.1.1'
+  broker: localhost
   #If username is defined, both username and password must be defined
   #username: 'user'
+  username: 
   #password: 'pass
+  password:
   #The remaining fields have defaults shown below
   #port: 1883
-  #prefix: ups
+  prefix: ups
 
 #Waveshare UPS config
 ups:
@@ -16,7 +19,7 @@ ups:
   #32V_2A
   #16V_5A
   #AFAIK this covers all of the products, let me know if it doesn't
-  model: '32V_2A'
+  model: '16V_5A'
   #Address on the I2C bus
   #Defaults to 0x42 for 32V_2A
   #Defaults to 0x43 for 16V_5A

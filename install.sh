@@ -11,11 +11,19 @@ echo "Copy python code into /usr/local/bin/"
 sudo cp -v *.py /usr/local/bin/
 sudo chmod 774 /usr/local/bin/waveshare_ups.py
 
+sudo mkdir /srv/ups2mqtt
+sudo chown pi:pi /srv/ups2mqtt
+sudo chmod 774 /srv/ups2mqtt
+python3 -m venv /srv/ups2mqtt
+#source /srv/ups2mqtt/bin/activate
+#pip3 install paho-mqtt pyyaml
+
 #Copy yaml but don't overwrite
 CONFIG=waveshare_ups.yaml
 echo "Copy config to $CONFIG if it doesn't exist already"
-sudo cp -v -n $CONFIG /etc/$CONFIG
-sudo chmod 664 $CONFIG
+#sudo cp -v -n $CONFIG /etc/$CONFIG
+sudo cp -v -n $CONFIG /home/homeassistant/.homeassistant/$CONFIG
+sudo chmod 664 /home/homeassistant/.homeassistant/$CONFIG
 
 #Copy systemd script, run daemon-reload
 echo "Copy service file"
