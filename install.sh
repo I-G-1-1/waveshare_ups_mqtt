@@ -17,6 +17,7 @@ sudo chmod 774 /srv/ups2mqtt
 python3 -m venv /srv/ups2mqtt
 #source /srv/ups2mqtt/bin/activate
 #pip3 install paho-mqtt pyyaml
+#pip3 install smbus
 
 #Copy yaml but don't overwrite
 CONFIG=waveshare_ups.yaml
