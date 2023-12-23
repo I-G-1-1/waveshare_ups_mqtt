@@ -127,7 +127,7 @@ def Main():
     UpdatePct = ConfigUPS.get('update_pct',5)
 
     #Max of 5 Current
-    def maxthreecurrent():
+    def maxfivecurrent():
         Cur1 = -UPS.getCurrent_mA() / 1000            # current in A
         time.sleep(2)
         Cur2 = -UPS.getCurrent_mA() / 1000            # current in A
@@ -140,6 +140,42 @@ def Main():
         CurMaxOfFive = max([Cur1, Cur2, Cur3, Cur4, Cur5])
         return CurMaxOfFive
 
+    #Max of 5 VoltBus
+    def maxfivevoltbus():
+        VoltBus1 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        VoltBus2 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        VoltBus3 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        VoltBus4 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        VoltBus5 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        #VoltBusMaxOfFive = max([VoltBus1, VoltBus2, VoltBus3, VoltBus4, VoltBus5])
+        VoltBusMaxOfFive = (VoltBus1 + VoltBus2 + VoltBus3 + VoltBus4 + VoltBus5)/5
+        return VoltBusMaxOfFive
+
+    #Max of 5 Current and VoltBus
+    def maxfivecurrentandvoltbus():
+        Cur1 = -UPS.getCurrent_mA() / 1000            # current in A
+        VoltBus1 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        Cur2 = -UPS.getCurrent_mA() / 1000            # current in A
+        VoltBus2 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        Cur3 = -UPS.getCurrent_mA() / 1000            # current in A
+        VoltBus3 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        Cur4 = -UPS.getCurrent_mA() / 1000            # current in A
+        VoltBus4 = UPS.getBusVoltage_V()
+        time.sleep(2)
+        Cur5 = -UPS.getCurrent_mA() / 1000            # current in A
+        VoltBus5 = UPS.getBusVoltage_V()
+        CurMaxOfFive = max([Cur1, Cur2, Cur3, Cur4, Cur5])
+        VoltBusAverageOfFive = (VoltBus1 + VoltBus2 + VoltBus3 + VoltBus4 + VoltBus5)/5
+        return CurMaxOfFive, VoltBusAverageOfFive
+
     #Loop forever
     while(1):
         try:
@@ -150,10 +186,14 @@ def Main():
             Data['VoltPSU'] = Data['VoltBus'] + Data['VoltShunt']
             #Data['Cur'] = UPS.getCurrent_mA() / 1000            # current in A
             #Data['Cur'] = -UPS.getCurrent_mA() / 1000            # current in A
-            Data['Cur'] = maxthreecurrent()
+            #Data['Cur'] = maxfivecurrent()
+            CurMaxOfFive, VoltBusAverageOfFive = maxfivecurrentandvoltbus()
+            Data['Cur'] = CurMaxOfFive
             Data['Power'] = UPS.getPower_W()                    # power in W
             #This percentage comes from the Waveshare code, blame them for inaccuracy
-            Data['Pct'] = (Data['VoltBus'] - 3)/1.2*100
+            #Data['Pct'] = (Data['VoltBus'] - 3)/1.2*100
+            #Data['Pct'] = (maxfivevoltbus() - 3)/1.2*100
+            Data['Pct'] = (VoltBusAverageOfFive - 3)/1.2*100
             if(Data['Pct'] > 100):Data['Pct'] = 100
             if(Data['Pct'] < 0):Data['Pct'] = 0
 
