@@ -126,6 +126,20 @@ def Main():
     UpdateVolt = ConfigUPS.get('update_volt',0.1)
     UpdatePct = ConfigUPS.get('update_pct',5)
 
+    #Max of 5 Current
+    def maxthreecurrent():
+        Cur1 = -UPS.getCurrent_mA() / 1000            # current in A
+        time.sleep(2)
+        Cur2 = -UPS.getCurrent_mA() / 1000            # current in A
+        time.sleep(2)
+        Cur3 = -UPS.getCurrent_mA() / 1000            # current in A
+        time.sleep(2)
+        Cur4 = -UPS.getCurrent_mA() / 1000            # current in A
+        time.sleep(2)
+        Cur5 = -UPS.getCurrent_mA() / 1000            # current in A
+        CurMaxOfThree = max([Cur1, Cur2, Cur3, Cur4, Cur5])
+        return CurMaxOfFive
+
     #Loop forever
     while(1):
         try:
@@ -134,7 +148,9 @@ def Main():
             Data['VoltBus'] = UPS.getBusVoltage_V()             # voltage on V- (load side)
             Data['VoltShunt'] = UPS.getShuntVoltage_mV() / 1000 # voltage between V+ and V- across the shunt
             Data['VoltPSU'] = Data['VoltBus'] + Data['VoltShunt']
-            Data['Cur'] = UPS.getCurrent_mA() / 1000            # current in A
+            #Data['Cur'] = UPS.getCurrent_mA() / 1000            # current in A
+            #Data['Cur'] = -UPS.getCurrent_mA() / 1000            # current in A
+            Data['Cur'] = maxthreecurrent()
             Data['Power'] = UPS.getPower_W()                    # power in W
             #This percentage comes from the Waveshare code, blame them for inaccuracy
             Data['Pct'] = (Data['VoltBus'] - 3)/1.2*100
