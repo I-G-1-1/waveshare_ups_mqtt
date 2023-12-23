@@ -137,7 +137,7 @@ def Main():
         Cur4 = -UPS.getCurrent_mA() / 1000            # current in A
         time.sleep(2)
         Cur5 = -UPS.getCurrent_mA() / 1000            # current in A
-        CurMaxOfThree = max([Cur1, Cur2, Cur3, Cur4, Cur5])
+        CurMaxOfFive = max([Cur1, Cur2, Cur3, Cur4, Cur5])
         return CurMaxOfFive
 
     #Loop forever
